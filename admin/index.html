@@ -6,6 +6,58 @@
     <title>《台灣靈格》後台管理系統 - Static CMS</title>
     <script>
       window.CMS_MANUAL_INIT = true;
+      window.__taiwanSpiritCmsStarted = false;
+
+      function bootTaiwanSpiritCms() {
+        var status = document.getElementById('cms-boot-status');
+        function showError(message) {
+          if (status) {
+            status.innerHTML = '<strong>Static CMS 載入失敗</strong>' + message;
+          }
+        }
+
+        if (window.__taiwanSpiritCmsStarted) return true;
+
+        try {
+          if (window.CMS && typeof window.CMS.init === 'function') {
+            window.__taiwanSpiritCmsStarted = true;
+            window.CMS.init();
+            setTimeout(function () {
+              var root = document.getElementById('nc-root');
+              if (root && root.childNodes.length > 0 && status) {
+                status.remove();
+              } else if (status) {
+                status.innerHTML = '<strong>Static CMS 已啟動，但畫面尚未渲染</strong>請開啟瀏覽器 Console 檢查 GitHub 登入或 CMS 設定錯誤。';
+              }
+            }, 1200);
+            return true;
+          }
+        } catch (error) {
+          showError('<code>' + String(error && error.message ? error.message : error) + '</code>');
+          console.error(error);
+          return true;
+        }
+
+        return false;
+      }
+
+      function startCmsPolling() {
+        var attempts = 0;
+        var timer = setInterval(function () {
+          attempts += 1;
+          if (bootTaiwanSpiritCms()) {
+            clearInterval(timer);
+            return;
+          }
+          if (attempts >= 40) {
+            clearInterval(timer);
+            var status = document.getElementById('cms-boot-status');
+            if (status) {
+              status.innerHTML = '<strong>Static CMS 載入失敗</strong>找不到 <code>window.CMS.init()</code>。請確認 <code>unpkg.com</code> 沒有被擋。';
+            }
+          }
+        }, 250);
+      }
     </script>
     <!-- 載入 Static CMS 的 CSS 資源 -->
     <link href="https://unpkg.com/@staticcms/app@3.0.0/dist/main.css" rel="stylesheet" />
@@ -46,25 +98,14 @@
       若畫面停在這裡，請確認瀏覽器允許載入 <code>unpkg.com</code> 與 GitHub 登入視窗。
     </div>
     <!-- 載入 Static CMS 的 JS 資源 -->
-    <script src="https://unpkg.com/@staticcms/app@3.0.0/dist/static-cms-app.js"></script>
+    <script
+      src="https://unpkg.com/@staticcms/app@3.0.0/dist/static-cms-app.js"
+      onload="bootTaiwanSpiritCms()"
+      onerror="document.getElementById('cms-boot-status').innerHTML = '<strong>Static CMS 載入失敗</strong>無法載入 <code>unpkg.com/@staticcms/app</code>。'"
+    ></script>
     <script>
-      window.addEventListener('load', function () {
-        var status = document.getElementById('cms-boot-status');
-        function showError(message) {
-          status.innerHTML = '<strong>Static CMS 載入失敗</strong>' + message;
-        }
-        try {
-          var cms = window.CMS || window.StaticCMS || window.NetlifyCmsApp || window.netlifyIdentity;
-          if (cms && typeof cms.init === 'function') {
-            cms.init();
-            return;
-          }
-          showError('找不到 Static CMS 初始化物件。請檢查 Static CMS CDN 是否被瀏覽器外掛或網路阻擋。');
-        } catch (error) {
-          showError('<code>' + String(error && error.message ? error.message : error) + '</code>');
-          console.error(error);
-        }
-      });
+      bootTaiwanSpiritCms();
+      startCmsPolling();
     </script>
   </body>
 </html>
