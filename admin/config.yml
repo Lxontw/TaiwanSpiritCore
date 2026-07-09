@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Lxon/TaiwanSpiritCore
+  repo: Lxontw/TaiwanSpiritCore
   branch: main
 
 local_backend: true

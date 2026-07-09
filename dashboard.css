@@ -43,7 +43,8 @@ body {
 
 .layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-areas: "sidebar content";
   height: 100vh;
   overflow: hidden;
 }
@@ -51,7 +52,7 @@ body {
 /* 原有 dashboard 結構適配 */
 .dashboard {
   display: grid;
-  grid-template-columns: 260px 1fr 280px;
+  grid-template-columns: 260px minmax(0, 1fr) 280px;
   grid-template-rows: 1fr 32px;
   grid-template-areas:
     "sidebar content assistant"
@@ -73,6 +74,7 @@ body {
   grid-area: sidebar;
   display: flex;
   flex-direction: column;
+  min-width: 0;
   background: var(--bg-sidebar);
   color: var(--text-secondary);
   overflow: hidden;
@@ -203,6 +205,7 @@ body {
 }
 
 .tree-item .tree-id {
+  flex: 0 0 auto;
   color: var(--text-secondary);
   opacity: 0.5;
   font-size: 10px;
@@ -211,6 +214,13 @@ body {
   background: rgba(255, 255, 255, 0.05);
   padding: 1px 4px;
   border-radius: 2px;
+}
+
+.tree-item .tree-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tree-item.active .tree-id {
@@ -228,6 +238,7 @@ body {
   grid-area: content;
   display: flex;
   flex-direction: column;
+  min-width: 0;
   background: var(--bg-dark);
   overflow-y: auto;
   border-right: 1px solid var(--border-color);
@@ -286,6 +297,7 @@ body {
   letter-spacing: 0.02em;
   margin-bottom: 6px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  overflow-wrap: anywhere;
 }
 
 .content-subtitle {
@@ -383,6 +395,7 @@ body {
   margin-bottom: 0;
   color: var(--text-primary);
   font-size: 14px;
+  overflow-wrap: anywhere;
 }
 
 /* 雙欄資訊網格 */
@@ -395,6 +408,7 @@ body {
 
 .grid-card {
   background: var(--bg-card);
+  min-width: 0;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 20px;
@@ -769,8 +783,9 @@ details.tree-group[open] .tree-group-toggle .arrow {
 
 .home-dashboard {
   padding: 48px;
-  max-width: 1000px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   overflow-y: auto;
   flex: 1;
 }
@@ -804,6 +819,7 @@ details.tree-group[open] .tree-group-toggle .arrow {
 
 .bento-card {
   position: relative;
+  min-width: 0;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -872,6 +888,7 @@ details.tree-group[open] .tree-group-toggle .arrow {
   color: var(--text-secondary);
   line-height: 1.6;
   margin-top: 12px;
+  overflow-wrap: anywhere;
 }
 
 .bento-bg-icon {
@@ -886,6 +903,22 @@ details.tree-group[open] .tree-group-toggle .arrow {
 
 /* 響應式佈局 */
 @media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-areas: "sidebar content";
+  }
+
+  .dashboard {
+    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-areas:
+      "sidebar content"
+      "statusbar statusbar";
+  }
+
+  .assistant {
+    display: none;
+  }
+
   .stats-bento {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -895,6 +928,44 @@ details.tree-group[open] .tree-group-toggle .arrow {
 }
 
 @media (max-width: 600px) {
+  body {
+    overflow: auto;
+  }
+
+  .layout,
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  #sidebar,
+  .sidebar {
+    max-height: 42vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  #content,
+  .content {
+    min-height: 58vh;
+    border-right: none;
+  }
+
+  .content-header,
+  .content-body,
+  .theme-detail-flow,
+  .home-dashboard {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
   .stats-bento {
     grid-template-columns: 1fr;
   }

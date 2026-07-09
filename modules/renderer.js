@@ -4,6 +4,26 @@
  */
 
 const Renderer = {
+  escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
+
+  escapeAttr(value) {
+    return this.escapeHtml(value).replace(/`/g, '&#96;');
+  },
+
+  safeUrl(value) {
+    const url = String(value ?? '').trim();
+    if (!url) return '';
+    if (/^(javascript|data|vbscript):/i.test(url)) return '';
+    return url;
+  },
+
   /**
    * 動態生成左側分類知識樹
    * @param {HTMLElement} container 知識樹容器
@@ -17,25 +37,31 @@ const Renderer = {
     const html = themes.map(theme => {
       const items = db[theme];
       const displayName = window.THEME_MAPPING?.[theme] || theme;
+      const safeTheme = this.escapeAttr(theme);
+      const safeDisplayName = this.escapeHtml(displayName);
       // 若路由的主題與當前主題一致，則預設展開
       const isOpen = activeParams.theme === theme ? 'open' : '';
       
       const itemLinks = items.map(item => {
         const isActive = activeParams.item === item.id ? 'active' : '';
+        const safeId = this.escapeAttr(item.id);
+        const safeTitle = this.escapeHtml(item.title);
+        const safeTitleAttr = this.escapeAttr(item.title);
+        const safeCategory = this.escapeAttr(item.category || '');
         return `
-          <li class="tree-item ${isActive}" data-id="${item.id}" data-title="${item.title}" data-category="${item.category || ''}">
-            <a id="link-item-${item.id}" href="#/theme/${theme}/item/${item.id}">
-              <span class="tree-id">${item.id}</span>
-              <span class="tree-title">${item.title}</span>
+          <li class="tree-item ${isActive}" data-id="${safeId}" data-title="${safeTitleAttr}" data-category="${safeCategory}">
+            <a id="link-item-${safeId}" href="#/theme/${safeTheme}/item/${safeId}">
+              <span class="tree-id">${safeId}</span>
+              <span class="tree-title">${safeTitle}</span>
             </a>
           </li>
         `;
       }).join('');
 
       return `
-        <details class="tree-group" data-theme="${theme}" ${isOpen}>
-          <summary class="tree-group-toggle" id="toggle-group-${theme}">
-            <span class="arrow">▼</span> ${displayName} (${items.length})
+        <details class="tree-group" data-theme="${safeTheme}" ${isOpen}>
+          <summary class="tree-group-toggle" id="toggle-group-${safeTheme}">
+            <span class="arrow">▼</span> ${safeDisplayName} (${items.length})
           </summary>
           <ul class="tree-items">
             ${itemLinks}
@@ -73,55 +99,64 @@ const Renderer = {
    */
   renderItemCard(item) {
     const summary = item.content?.summary || '暫無概要說明';
+    const safeItemId = this.escapeAttr(item.id);
+    const safeTitle = this.escapeHtml(item.title);
+    const safeTitleAttr = this.escapeAttr(item.title);
+    const safeSubtitle = this.escapeHtml(item.subtitle || '');
+    const safeTheme = this.escapeAttr(item.theme);
+    const safeThemeName = this.escapeHtml(window.THEME_MAPPING?.[item.theme] || item.theme);
+    const safeCategory = this.escapeHtml(item.category || '未分類');
+    const safeStatus = this.escapeHtml(item.meta?.status || 'Active');
     
     // 跨主題標籤聯動：若匹配到福澤蛙條目，則點擊後變更 Hash 跳轉
     const regions = item.content?.regions?.map(r => {
       const matchedFuzhe = this.findFuzheItemByRegion(r);
+      const safeRegion = this.escapeHtml(r);
       if (matchedFuzhe) {
-        return `<a href="#/theme/fuzhe/item/${matchedFuzhe.id}" class="chip tag-region">${r}</a>`;
+        return `<a href="#/theme/fuzhe/item/${this.escapeAttr(matchedFuzhe.id)}" class="chip tag-region">${safeRegion}</a>`;
       }
-      return `<span class="chip tag-region">${r}</span>`;
+      return `<span class="chip tag-region">${safeRegion}</span>`;
     }).join('') || '<span class="empty-tag">無</span>';
 
-    const cities = item.content?.cities?.map(c => `<span class="chip tag-city">${c}</span>`).join('') || '<span class="empty-tag">無</span>';
-    const landscapes = item.content?.landscapes?.map(l => `<span class="chip tag-landscape">${l}</span>`).join('') || '<span class="empty-tag">無</span>';
-    const transformations = item.content?.transformations?.map(t => `<li>${t}</li>`).join('') || '<li class="empty-section">暫無化身資料</li>';
-    const tips = item.content?.tips?.map(t => `<li>${t}</li>`).join('') || '<li class="empty-section">暫無設計提示</li>';
+    const cities = item.content?.cities?.map(c => `<span class="chip tag-city">${this.escapeHtml(c)}</span>`).join('') || '<span class="empty-tag">無</span>';
+    const landscapes = item.content?.landscapes?.map(l => `<span class="chip tag-landscape">${this.escapeHtml(l)}</span>`).join('') || '<span class="empty-tag">無</span>';
+    const transformations = item.content?.transformations?.map(t => `<li>${this.escapeHtml(t)}</li>`).join('') || '<li class="empty-section">暫無化身資料</li>';
+    const tips = item.content?.tips?.map(t => `<li>${this.escapeHtml(t)}</li>`).join('') || '<li class="empty-section">暫無設計提示</li>';
 
     // 處理圖片渲染與未加載時的 pending 虛線框占位
     let imageHtml = '';
-    if (item.image) {
+    const safeImage = this.safeUrl(item.image);
+    if (safeImage) {
       imageHtml = `
         <div class="imagebox">
-          <img src="${item.image}" alt="${item.title}" style="max-width:100%; max-height:100%; object-fit:cover;">
+          <img src="${this.escapeAttr(safeImage)}" alt="${safeTitleAttr}" style="max-width:100%; max-height:100%; object-fit:cover;">
         </div>
       `;
     } else {
-      const searchKeyword = item.title;
       imageHtml = `
         <div class="imagebox pending">
           <div class="pending-content">
             <span class="pending-icon">🖼️</span>
-            <p>圖片未載入，建議參考搜尋：<br><strong>${searchKeyword}</strong></p>
+            <p>圖片未載入，建議參考搜尋：<br><strong>${safeTitle}</strong></p>
           </div>
         </div>
       `;
     }
 
     return `
-      <article class="card detail-card animate-fade-in" id="card-item-${item.id}" data-id="${item.id}">
+      <article class="card detail-card animate-fade-in" id="card-item-${safeItemId}" data-id="${safeItemId}">
         <div class="card-header">
           <div class="breadcrumbs">
             <a href="#/">首頁</a> &gt; 
-            <a href="#/theme/${item.theme}">${window.THEME_MAPPING?.[item.theme] || item.theme}</a> &gt; 
-            <span>${item.title}</span>
+            <a href="#/theme/${safeTheme}">${safeThemeName}</a> &gt;
+            <span>${safeTitle}</span>
           </div>
-          <h1 class="content-title">${item.title}</h1>
-          ${item.subtitle ? `<p class="content-subtitle">${item.subtitle}</p>` : ''}
+          <h1 class="content-title">${safeTitle}</h1>
+          ${item.subtitle ? `<p class="content-subtitle">${safeSubtitle}</p>` : ''}
           <div class="content-meta">
-            <span class="meta-item"><span class="meta-label">ID:</span> <code class="meta-val">${item.id}</code></span>
-            <span class="meta-item"><span class="meta-label">層級/屬性:</span> <span class="meta-val">${item.category || '未分類'}</span></span>
-            <span class="meta-item"><span class="meta-label">狀態:</span> <span class="meta-val badge">${item.meta?.status || 'Active'}</span></span>
+            <span class="meta-item"><span class="meta-label">ID:</span> <code class="meta-val">${this.escapeHtml(item.id)}</code></span>
+            <span class="meta-item"><span class="meta-label">層級/屬性:</span> <span class="meta-val">${safeCategory}</span></span>
+            <span class="meta-item"><span class="meta-label">狀態:</span> <span class="meta-val badge">${safeStatus}</span></span>
           </div>
         </div>
         
@@ -131,7 +166,7 @@ const Renderer = {
           <section class="info-section">
             <h2>靈格概要</h2>
             <div class="summary-box">
-              <p>${summary.replace(/\n/g, '<br>')}</p>
+              <p>${this.escapeHtml(summary).replace(/\n/g, '<br>')}</p>
             </div>
           </section>
 
@@ -269,12 +304,14 @@ const Renderer = {
 
     const items = window.DataLoader.getByTheme(theme);
     const themeName = window.THEME_MAPPING?.[theme] || theme;
+    const safeTheme = this.escapeHtml(theme);
+    const safeThemeName = this.escapeHtml(themeName);
 
     if (!items || items.length === 0) {
       container.innerHTML = `
         <div class="content-error">
           <h2>主題未找到</h2>
-          <p>無法在資料庫中找到主題 "${theme}"，或是該主題下目前沒有條目。</p>
+          <p>無法在資料庫中找到主題 "${safeTheme}"，或是該主題下目前沒有條目。</p>
           <a href="#/" class="btn-back">返回首頁</a>
         </div>
       `;
@@ -285,9 +322,9 @@ const Renderer = {
     const headerHtml = `
       <div class="content-header animate-fade-in">
         <div class="breadcrumbs">
-          <a href="#/">首頁</a> &gt; <span>${themeName}</span>
+          <a href="#/">首頁</a> &gt; <span>${safeThemeName}</span>
         </div>
-        <h1 class="content-title">主題：${themeName}</h1>
+        <h1 class="content-title">主題：${safeThemeName}</h1>
         <p class="content-subtitle">此主題下共收錄 ${items.length} 個靈格條目</p>
       </div>
     `;
@@ -343,6 +380,7 @@ const Renderer = {
     if (!container) return;
 
     container.dataset.theme = 'search';
+    const safeKeyword = this.escapeHtml(keyword);
 
     if (results.length === 0) {
       container.innerHTML = `
@@ -350,7 +388,7 @@ const Renderer = {
           <div class="breadcrumbs">
             <a href="#/">首頁</a> &gt; <span>搜尋結果</span>
           </div>
-          <h1 class="content-title">搜尋："${keyword}"</h1>
+          <h1 class="content-title">搜尋："${safeKeyword}"</h1>
           <p class="content-subtitle">未找到符合的靈格條目</p>
         </div>
         <div class="content-body">
@@ -367,7 +405,7 @@ const Renderer = {
         <div class="breadcrumbs">
           <a href="#/">首頁</a> &gt; <span>搜尋結果</span>
         </div>
-        <h1 class="content-title">搜尋："${keyword}"</h1>
+        <h1 class="content-title">搜尋："${safeKeyword}"</h1>
         <p class="content-subtitle">共找到 ${results.length} 個符合的靈格條目</p>
       </div>
     `;
