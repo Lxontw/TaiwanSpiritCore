@@ -34,10 +34,19 @@ const excludeIds = new Set([
   'item-index'
 ]);
 
-// 輔助函數：清理 HTML 標籤
+// 輔助函數：清理 HTML 標籤並解碼基本 HTML 實體
 function cleanText(html) {
   if (!html) return '';
-  return html.replace(/<[^>]+>/g, '').trim();
+  let text = html.replace(/<[^>]+>/g, '').trim();
+  text = text
+    .replace(/&amp;/g, '&')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'");
+  return text;
 }
 
 // 輔助函數：提取 chips 文字
@@ -72,13 +81,24 @@ function extractThemeData(filePath, theme) {
   console.log(`[Info] Extracting theme: ${theme} from ${path.basename(filePath)}`);
   const content = fs.readFileSync(filePath, 'utf8');
 
-  // 正則匹配所有 <section class="...section..." id="xxx">
-  const sectionRegex = /<section class="[^"]*section[^"]*" id="([^"]+)">([\s\S]*?)<\/section>/g;
+  // 正則匹配所有 <section ...>...</section>，移除對 class 與 id 順序的硬性依賴
+  const sectionRegex = /<section\b([^>]*?)>([\s\S]*?)<\/section>/gi;
   let sectionMatch;
 
   while ((sectionMatch = sectionRegex.exec(content))) {
-    const id = sectionMatch[1];
+    const attrs = sectionMatch[1];
     const inner = sectionMatch[2];
+
+    const idMatch = attrs.match(/id="([^"]+)"/i);
+    const classMatch = attrs.match(/class="([^"]+)"/i);
+
+    if (!idMatch) continue;
+    const id = idMatch[1];
+
+    const className = classMatch ? classMatch[1] : '';
+    if (!/section/i.test(className)) {
+      continue;
+    }
 
     // 排除分類、索引、快速入口等 section
     const isCategory = id.includes('-index') || 
@@ -151,8 +171,8 @@ function extractThemeData(filePath, theme) {
       }
     }
 
-    // 提取所有卡片資訊
-    const cardRegex = /<(article|div) class="card">([\s\S]*?)<\/\1>/g;
+    // 提取所有卡片資訊，支援多 class 且無屬性順序依賴
+    const cardRegex = /<(article|div)[^>]*?\bclass="[^"]*?\bcard\b[^"]*"[^>]*?>([\s\S]*?)<\/\1>/gi;
     let cardMatch;
     let summaryParts = [];
 
