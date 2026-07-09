@@ -1,111 +1,407 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>《台灣靈格》後台管理系統 - Static CMS</title>
-    <script>
-      window.CMS_MANUAL_INIT = true;
-      window.__taiwanSpiritCmsStarted = false;
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《台灣靈格》資料後台</title>
+  <style>
+    :root {
+      --bg: #0f0f11;
+      --panel: #151518;
+      --card: #1b1b22;
+      --border: #2b2b35;
+      --text: #f0f0f5;
+      --muted: #a0a0b0;
+      --accent: #c8a84b;
+      --blue: #4a90e2;
+      --green: #2ecc71;
+    }
 
-      function bootTaiwanSpiritCms() {
-        var status = document.getElementById('cms-boot-status');
-        function showError(message) {
-          if (status) {
-            status.innerHTML = '<strong>Static CMS 載入失敗</strong>' + message;
-          }
-        }
+    * { box-sizing: border-box; }
 
-        if (window.__taiwanSpiritCmsStarted) return true;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font: 14px/1.6 "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    }
 
-        try {
-          if (window.CMS && typeof window.CMS.init === 'function') {
-            window.__taiwanSpiritCmsStarted = true;
-            window.CMS.init();
-            setTimeout(function () {
-              var root = document.getElementById('nc-root');
-              if (root && root.childNodes.length > 0 && status) {
-                status.remove();
-              } else if (status) {
-                status.innerHTML = '<strong>Static CMS 已啟動，但畫面尚未渲染</strong>請開啟瀏覽器 Console 檢查 GitHub 登入或 CMS 設定錯誤。';
-              }
-            }, 1200);
-            return true;
-          }
-        } catch (error) {
-          showError('<code>' + String(error && error.message ? error.message : error) + '</code>');
-          console.error(error);
-          return true;
-        }
+    .admin-shell {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      min-height: 100vh;
+    }
 
-        return false;
+    .sidebar {
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      padding: 18px 14px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    .brand {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .search {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      padding: 10px 12px;
+      outline: none;
+      margin-bottom: 14px;
+    }
+
+    .search:focus { border-color: var(--accent); }
+
+    .nav-button {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      padding: 9px 10px;
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+    }
+
+    .nav-button:hover,
+    .nav-button.active {
+      background: rgba(200,168,75,0.1);
+      color: var(--accent);
+    }
+
+    .side-links {
+      border-top: 1px solid var(--border);
+      margin-top: 16px;
+      padding-top: 16px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .side-links a,
+    .card-actions a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 12px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .side-links a:hover,
+    .card-actions a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .main {
+      padding: 28px 32px;
+      min-width: 0;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle,
+    .meta {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      color: var(--muted);
+      min-width: 92px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--accent);
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .entry-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      min-width: 0;
+    }
+
+    .entry-title {
+      margin: 0 0 6px;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .entry-id {
+      display: inline-block;
+      color: var(--accent);
+      background: rgba(200,168,75,0.1);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font: 12px/1.4 monospace;
+      margin-bottom: 10px;
+      overflow-wrap: anywhere;
+    }
+
+    .summary {
+      color: var(--muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 68px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0;
+    }
+
+    .chip {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 2px 8px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .chip.image-ok { color: var(--green); }
+    .chip.image-missing { color: var(--accent); }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .empty {
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      padding: 28px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .admin-shell { display: block; }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .main { padding: 22px 18px; }
+      .header { display: block; }
+      .stats { justify-content: flex-start; margin-top: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <div class="brand">TAIWAN SPIRIT ADMIN</div>
+      <input class="search" id="search" type="search" placeholder="搜尋 ID / 名稱 / 摘要">
+      <nav id="theme-nav"></nav>
+      <div class="side-links">
+        <a href="../">回前台</a>
+        <a href="cms.html">Static CMS 實驗入口</a>
+        <a href="https://github.com/Lxontw/TaiwanSpiritCore/tree/main/data" target="_blank" rel="noreferrer">GitHub 資料目錄</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <div>
+          <h1 id="page-title">資料後台</h1>
+          <p class="subtitle">這裡直接讀取網站資料庫，可檢視、搜尋，並跳到 GitHub 編輯單筆 JSON。</p>
+          <p class="meta" id="status">正在載入資料...</p>
+        </div>
+        <div class="stats" id="stats"></div>
+      </header>
+      <section class="grid" id="entries"></section>
+    </main>
+  </div>
+
+  <script src="../data/database.js"></script>
+  <script>
+    const THEMES = [
+      ['fuzhe', '福澤蛙'],
+      ['plants', '植物'],
+      ['monsters', '精怪地景'],
+      ['talismans', '符咒法器'],
+      ['temples', '廟宇神靈']
+    ];
+
+    const REPO_EDIT_BASE = 'https://github.com/Lxontw/TaiwanSpiritCore/edit/main';
+    let activeTheme = 'fuzhe';
+    let query = '';
+
+    const navEl = document.getElementById('theme-nav');
+    const entriesEl = document.getElementById('entries');
+    const statsEl = document.getElementById('stats');
+    const statusEl = document.getElementById('status');
+    const titleEl = document.getElementById('page-title');
+    const searchEl = document.getElementById('search');
+
+    function encodeRoute(value) {
+      return encodeURIComponent(String(value || ''));
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function getDb() {
+      return window.TAIWAN_SPIRIT_DB || {};
+    }
+
+    function itemText(item) {
+      return [
+        item.id,
+        item.title,
+        item.subtitle,
+        item.category,
+        item.content?.summary,
+        ...(item.content?.regions || []),
+        ...(item.content?.cities || []),
+        ...(item.content?.landscapes || [])
+      ].join(' ').toLowerCase();
+    }
+
+    function editPath(theme, id) {
+      return `${REPO_EDIT_BASE}/data/${theme}/${id}.json`;
+    }
+
+    function renderNav() {
+      const db = getDb();
+      navEl.innerHTML = THEMES.map(([theme, label]) => {
+        const count = Array.isArray(db[theme]) ? db[theme].length : 0;
+        return `<button class="nav-button ${theme === activeTheme ? 'active' : ''}" data-theme="${theme}">
+          <span>${label}</span><span>${count}</span>
+        </button>`;
+      }).join('');
+
+      navEl.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', () => {
+          activeTheme = button.dataset.theme;
+          render();
+        });
+      });
+    }
+
+    function renderStats() {
+      const db = getDb();
+      statsEl.innerHTML = THEMES.map(([theme, label]) => {
+        const count = Array.isArray(db[theme]) ? db[theme].length : 0;
+        return `<div class="stat"><strong>${count}</strong>${label}</div>`;
+      }).join('');
+    }
+
+    function renderEntries() {
+      const db = getDb();
+      const items = Array.isArray(db[activeTheme]) ? db[activeTheme] : [];
+      const q = query.trim().toLowerCase();
+      const filtered = q ? items.filter(item => itemText(item).includes(q)) : items;
+      const label = THEMES.find(([theme]) => theme === activeTheme)?.[1] || activeTheme;
+
+      titleEl.textContent = label;
+      statusEl.textContent = `顯示 ${filtered.length} / ${items.length} 筆。`;
+
+      if (filtered.length === 0) {
+        entriesEl.innerHTML = '<div class="empty">沒有符合搜尋條件的資料。</div>';
+        return;
       }
 
-      function startCmsPolling() {
-        var attempts = 0;
-        var timer = setInterval(function () {
-          attempts += 1;
-          if (bootTaiwanSpiritCms()) {
-            clearInterval(timer);
-            return;
-          }
-          if (attempts >= 40) {
-            clearInterval(timer);
-            var status = document.getElementById('cms-boot-status');
-            if (status) {
-              status.innerHTML = '<strong>Static CMS 載入失敗</strong>找不到 <code>window.CMS.init()</code>。請確認 <code>unpkg.com</code> 沒有被擋。';
-            }
-          }
-        }, 250);
-      }
-    </script>
-    <!-- 載入 Static CMS 的 CSS 資源 -->
-    <link href="https://unpkg.com/@staticcms/app@3.0.0/dist/main.css" rel="stylesheet" />
-    <style>
-      body {
-        margin: 0;
-        background: #111113;
-        color: #f0f0f5;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
+      entriesEl.innerHTML = filtered.map(item => {
+        const summary = item.content?.summary || '暫無摘要';
+        const hasImage = Boolean(item.image);
+        const frontendUrl = `../#/theme/${encodeRoute(activeTheme)}/item/${encodeRoute(item.id)}`;
+        return `<article class="entry-card">
+          <h2 class="entry-title">${escapeHtml(item.title || item.id)}</h2>
+          <span class="entry-id">${escapeHtml(item.id)}</span>
+          <p class="summary">${escapeHtml(summary)}</p>
+          <div class="chips">
+            <span class="chip">${escapeHtml(item.category || '未分類')}</span>
+            <span class="chip ${hasImage ? 'image-ok' : 'image-missing'}">${hasImage ? '有圖片' : '缺圖片'}</span>
+          </div>
+          <div class="card-actions">
+            <a href="${frontendUrl}">前台查看</a>
+            <a href="${editPath(activeTheme, encodeURIComponent(item.id))}" target="_blank" rel="noreferrer">GitHub 編輯</a>
+          </div>
+        </article>`;
+      }).join('');
+    }
 
-      .cms-boot-status {
-        max-width: 720px;
-        padding: 24px;
-        color: #c8a84b;
-        font-size: 14px;
-        line-height: 1.7;
-      }
+    function render() {
+      renderNav();
+      renderStats();
+      renderEntries();
+    }
 
-      .cms-boot-status strong {
-        display: block;
-        margin-bottom: 8px;
-        color: #f0f0f5;
-        font-size: 18px;
-      }
+    searchEl.addEventListener('input', event => {
+      query = event.target.value;
+      renderEntries();
+    });
 
-      .cms-boot-status code {
-        color: #f0f0f5;
-        background: rgba(255, 255, 255, 0.08);
-        padding: 2px 6px;
-        border-radius: 4px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="cms-boot-status" class="cms-boot-status">
-      <strong>正在載入《台灣靈格》後台...</strong>
-      若畫面停在這裡，請確認瀏覽器允許載入 <code>unpkg.com</code> 與 GitHub 登入視窗。
-    </div>
-    <!-- 載入 Static CMS 的 JS 資源 -->
-    <script
-      src="https://unpkg.com/@staticcms/app@3.0.0/dist/static-cms-app.js"
-      onload="bootTaiwanSpiritCms()"
-      onerror="document.getElementById('cms-boot-status').innerHTML = '<strong>Static CMS 載入失敗</strong>無法載入 <code>unpkg.com/@staticcms/app</code>。'"
-    ></script>
-    <script>
-      bootTaiwanSpiritCms();
-      startCmsPolling();
-    </script>
-  </body>
+    if (!window.TAIWAN_SPIRIT_DB) {
+      statusEl.textContent = '資料庫載入失敗，請確認 data/database.js 是否存在。';
+      entriesEl.innerHTML = '<div class="empty">無法載入資料。</div>';
+    } else {
+      render();
+    }
+  </script>
+</body>
 </html>

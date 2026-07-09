@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《台灣靈格》Static CMS 實驗入口</title>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+    function boot() {
+      if (window.CMS && typeof window.CMS.init === 'function') {
+        window.CMS.init();
+      }
+    }
+  </script>
+  <link href="https://unpkg.com/@staticcms/app@3.0.0/dist/main.css" rel="stylesheet">
+</head>
+<body>
+  <script src="https://unpkg.com/@staticcms/app@3.0.0/dist/static-cms-app.js" onload="boot()"></script>
+</body>
+</html>
