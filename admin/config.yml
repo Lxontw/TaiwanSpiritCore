@@ -1,0 +1,124 @@
+backend:
+  name: github
+  repo: Lxon/TaiwanSpiritCore
+  branch: main
+
+local_backend: true
+
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+collections:
+  - name: "plants"
+    label: "植物 (Plants)"
+    folder: "data/plants"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{title}}"
+    fields:
+      - { label: "識別 ID", name: "id", widget: "string" }
+      - { label: "主題", name: "theme", widget: "hidden", default: "plants" }
+      - { label: "分類", name: "category", widget: "string" }
+      - { label: "名稱 / 標題", name: "title", widget: "string" }
+      - { label: "副標題", name: "subtitle", widget: "string", required: false }
+      - label: "元數據 (Meta)"
+        name: "meta"
+        widget: "object"
+        fields:
+          - { label: "等級 (Level)", name: "level", widget: "string" }
+          - { label: "圖片狀態 (Status)", name: "status", widget: "select", options: ["已放圖片", "圖片待補"], default: "已放圖片" }
+      - label: "內容 (Content)"
+        name: "content"
+        widget: "object"
+        fields:
+          - { label: "摘要說明", name: "summary", widget: "text", required: false }
+          - label: "主要分佈區域"
+            name: "regions"
+            widget: "list"
+            required: false
+            field: { label: "區域", widget: "string" }
+          - label: "流傳都市與脈絡"
+            name: "cities"
+            widget: "list"
+            required: false
+            field: { label: "城市/脈絡", widget: "string" }
+          - label: "相關地景"
+            name: "landscapes"
+            widget: "list"
+            required: false
+            field: { label: "地景", widget: "string" }
+          - label: "台灣靈格轉化"
+            name: "transformations"
+            widget: "list"
+            required: false
+            field: { label: "轉化可能", widget: "string" }
+          - label: "造型提示"
+            name: "tips"
+            widget: "list"
+            required: false
+            field: { label: "提示", widget: "string" }
+      - { label: "圖片路徑", name: "image", widget: "image", required: false }
+      - label: "資料來源 (Source)"
+        name: "source"
+        widget: "object"
+        fields:
+          - { label: "來源標籤", name: "label", widget: "string", required: false }
+          - { label: "來源連結 (URL)", name: "url", widget: "string", required: false }
+
+  - name: "talismans"
+    label: "符咒法器 (Talismans)"
+    folder: "data/talismans"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{title}}"
+    fields:
+      - { label: "識別 ID", name: "id", widget: "string" }
+      - { label: "主題", name: "theme", widget: "hidden", default: "talismans" }
+      - { label: "分類", name: "category", widget: "string" }
+      - { label: "名稱 / 標題", name: "title", widget: "string" }
+      - { label: "副標題", name: "subtitle", widget: "string", required: false }
+      - label: "元數據 (Meta)"
+        name: "meta"
+        widget: "object"
+        fields:
+          - { label: "等級 (Level)", name: "level", widget: "string" }
+          - { label: "圖片狀態 (Status)", name: "status", widget: "select", options: ["已放圖片", "圖片待補"], default: "已放圖片" }
+      - label: "內容 (Content)"
+        name: "content"
+        widget: "object"
+        fields:
+          - { label: "摘要說明", name: "summary", widget: "text", required: false }
+          - label: "主要分佈區域"
+            name: "regions"
+            widget: "list"
+            required: false
+            field: { label: "區域", widget: "string" }
+          - label: "流傳都市與脈絡"
+            name: "cities"
+            widget: "list"
+            required: false
+            field: { label: "城市/脈絡", widget: "string" }
+          - label: "相關地景"
+            name: "landscapes"
+            widget: "list"
+            required: false
+            field: { label: "地景", widget: "string" }
+          - label: "台灣靈格轉化"
+            name: "transformations"
+            widget: "list"
+            required: false
+            field: { label: "轉化可能", widget: "string" }
+          - label: "造型提示"
+            name: "tips"
+            widget: "list"
+            required: false
+            field: { label: "提示", widget: "string" }
+      - { label: "圖片路徑", name: "image", widget: "image", required: false }
+      - label: "資料來源 (Source)"
+        name: "source"
+        widget: "object"
+        fields:
+          - { label: "來源標籤", name: "label", widget: "string", required: false }
+          - { label: "來源連結 (URL)", name: "url", widget: "string", required: false }
