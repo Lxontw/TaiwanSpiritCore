@@ -38,6 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
   Router.init((params) => {
     console.log('Route changed:', params);
     
+    // 路由改變時，若為具體條目或主題，清空搜尋文字並還原樹狀圖狀態
+    const searchInput = document.getElementById('search-input');
+    if (searchInput && searchInput.value) {
+      searchInput.value = '';
+      resetTreeFilter();
+    }
+    
     // 路由高亮與展開知識樹
     highlightTreeItem(params);
     
@@ -45,6 +52,25 @@ document.addEventListener('DOMContentLoaded', () => {
     Renderer.renderContent(document.getElementById('content'), params);
   });
 });
+
+// 還原左側分類樹項目顯示
+function resetTreeFilter() {
+  const treeItems = document.querySelectorAll('.tree-item');
+  const treeGroups = document.querySelectorAll('.tree-group');
+  
+  treeItems.forEach(item => item.style.display = '');
+  treeGroups.forEach(group => {
+    group.style.display = '';
+    
+    // 根據當前路由還原 details 的展開狀態
+    const currentParams = Router.parseHash(window.location.hash);
+    if (group.dataset.theme === currentParams.theme) {
+      group.setAttribute('open', '');
+    } else {
+      group.removeAttribute('open');
+    }
+  });
+}
 
 // 初始化搜尋
 function initSearch() {
@@ -55,32 +81,15 @@ function initSearch() {
     const query = e.target.value.trim();
     const contentEl = document.getElementById('content');
     
-    if (!query) {
-      // 清空搜尋時，恢復左側所有樹項目顯示
-      const treeItems = document.querySelectorAll('.tree-item');
-      const treeGroups = document.querySelectorAll('.tree-group');
-      
-      treeItems.forEach(item => item.style.display = '');
-      treeGroups.forEach(group => {
-        group.style.display = '';
-        
-        // 根據當前路由還原 details 的展開狀態
-        const currentParams = Router.parseHash(window.location.hash);
-        if (group.dataset.theme === currentParams.theme) {
-          group.setAttribute('open', '');
-        } else {
-          group.removeAttribute('open');
-        }
-      });
-
-      // 還原右側路由對應的內容
-      const currentParams = Router.parseHash(window.location.hash);
-      Renderer.renderContent(contentEl, currentParams);
-      return;
-    }
-
-    // 調用 Search 進行跨主題搜尋
+    // 調用 Search 進行跨主題搜尋（其內部包含 300ms 防抖動，包括清空輸入的情況）
     Search.query(query, (results) => {
+      if (!query) {
+        resetTreeFilter();
+        const currentParams = Router.parseHash(window.location.hash);
+        Renderer.renderContent(contentEl, currentParams);
+        return;
+      }
+
       // 1. 渲染右側搜尋結果
       Renderer.renderSearchResults(contentEl, query, results);
       
