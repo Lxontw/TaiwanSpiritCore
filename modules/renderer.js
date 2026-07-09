@@ -24,6 +24,10 @@ const Renderer = {
     return url;
   },
 
+  encodeRouteSegment(value) {
+    return encodeURIComponent(String(value ?? ''));
+  },
+
   /**
    * 動態生成左側分類知識樹
    * @param {HTMLElement} container 知識樹容器
@@ -45,12 +49,14 @@ const Renderer = {
       const itemLinks = items.map(item => {
         const isActive = activeParams.item === item.id ? 'active' : '';
         const safeId = this.escapeAttr(item.id);
+        const routeId = this.encodeRouteSegment(item.id);
+        const routeTheme = this.encodeRouteSegment(theme);
         const safeTitle = this.escapeHtml(item.title);
         const safeTitleAttr = this.escapeAttr(item.title);
         const safeCategory = this.escapeAttr(item.category || '');
         return `
           <li class="tree-item ${isActive}" data-id="${safeId}" data-title="${safeTitleAttr}" data-category="${safeCategory}">
-            <a id="link-item-${safeId}" href="#/theme/${safeTheme}/item/${safeId}">
+            <a id="link-item-${safeId}" href="#/theme/${routeTheme}/item/${routeId}">
               <span class="tree-id">${safeId}</span>
               <span class="tree-title">${safeTitle}</span>
             </a>
@@ -104,6 +110,7 @@ const Renderer = {
     const safeTitleAttr = this.escapeAttr(item.title);
     const safeSubtitle = this.escapeHtml(item.subtitle || '');
     const safeTheme = this.escapeAttr(item.theme);
+    const routeTheme = this.encodeRouteSegment(item.theme);
     const safeThemeName = this.escapeHtml(window.THEME_MAPPING?.[item.theme] || item.theme);
     const safeCategory = this.escapeHtml(item.category || '未分類');
     const safeStatus = this.escapeHtml(item.meta?.status || 'Active');
@@ -113,7 +120,7 @@ const Renderer = {
       const matchedFuzhe = this.findFuzheItemByRegion(r);
       const safeRegion = this.escapeHtml(r);
       if (matchedFuzhe) {
-        return `<a href="#/theme/fuzhe/item/${this.escapeAttr(matchedFuzhe.id)}" class="chip tag-region">${safeRegion}</a>`;
+        return `<a href="#/theme/fuzhe/item/${this.encodeRouteSegment(matchedFuzhe.id)}" class="chip tag-region">${safeRegion}</a>`;
       }
       return `<span class="chip tag-region">${safeRegion}</span>`;
     }).join('') || '<span class="empty-tag">無</span>';
@@ -147,8 +154,8 @@ const Renderer = {
       <article class="card detail-card animate-fade-in" id="card-item-${safeItemId}" data-id="${safeItemId}">
         <div class="card-header">
           <div class="breadcrumbs">
-            <a href="#/">首頁</a> &gt; 
-            <a href="#/theme/${safeTheme}">${safeThemeName}</a> &gt;
+            <a href="#/">首頁</a> &gt;
+            <a href="#/theme/${routeTheme}">${safeThemeName}</a> &gt;
             <span>${safeTitle}</span>
           </div>
           <h1 class="content-title">${safeTitle}</h1>

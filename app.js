@@ -4,10 +4,12 @@
 const THEME_MAPPING = {
   fuzhe: '福澤蛙',
   plants: '特有植物',
+  monsters: '精怪地景',
+  talismans: '符咒法器',
+  temples: '廟宇神靈',
   creatures: '靈格生物',
   deities: '神靈系統',
   guardians: '守護者',
-  temples: '廟宇信仰',
   artifacts: '法器系統',
   spells: '符咒系統',
   rituals: '祭典儀式',

@@ -1,4 +1,13 @@
 const Router = {
+  decodeSegment(segment) {
+    try {
+      return decodeURIComponent(segment);
+    } catch (e) {
+      console.warn('Router.decodeSegment failed:', segment, e);
+      return segment;
+    }
+  },
+
   init(onRouteChanged) {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash;
@@ -23,8 +32,8 @@ const Router = {
     const itemIdx = parts.indexOf('item');
     
     return {
-      theme: themeIdx !== -1 && themeIdx + 1 < parts.length ? parts[themeIdx + 1] : null,
-      item: itemIdx !== -1 && itemIdx + 1 < parts.length ? parts[itemIdx + 1] : null
+      theme: themeIdx !== -1 && themeIdx + 1 < parts.length ? this.decodeSegment(parts[themeIdx + 1]) : null,
+      item: itemIdx !== -1 && itemIdx + 1 < parts.length ? this.decodeSegment(parts[itemIdx + 1]) : null
     };
   }
 };
