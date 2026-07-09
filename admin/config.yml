@@ -6,7 +6,7 @@ backend:
 local_backend: true
 
 media_folder: "assets/images"
-public_folder: "/assets/images"
+public_folder: "assets/images"
 
 collections:
   - name: "plants"
@@ -15,7 +15,7 @@ collections:
     create: true
     extension: "json"
     format: "json"
-    slug: "{{title}}"
+    slug: "{{fields.id}}"
     fields:
       - { label: "識別 ID", name: "id", widget: "string" }
       - { label: "主題", name: "theme", widget: "hidden", default: "plants" }
@@ -72,7 +72,7 @@ collections:
     create: true
     extension: "json"
     format: "json"
-    slug: "{{title}}"
+    slug: "{{fields.id}}"
     fields:
       - { label: "識別 ID", name: "id", widget: "string" }
       - { label: "主題", name: "theme", widget: "hidden", default: "talismans" }
