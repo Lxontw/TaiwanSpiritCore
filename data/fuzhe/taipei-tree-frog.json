@@ -1,0 +1,45 @@
+{
+  "id": "taipei-tree-frog",
+  "theme": "fuzhe",
+  "category": "樹蛙／北部地域型",
+  "title": "台北樹蛙",
+  "subtitle": "",
+  "meta": {
+    "level": "樹蛙／北部地域型",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n北部代表性綠色樹蛙，適合連到盆地、都市邊界、濕地與樹林底層。圖片參考搜尋：台北樹蛙 Rhacophorus taipeianus",
+    "regions": [
+      "北部盆地・河口靈格區"
+    ],
+    "cities": [
+      "台北",
+      "新北",
+      "桃園",
+      "中部以北中低海拔"
+    ],
+    "landscapes": [
+      "樹林",
+      "濕地",
+      "都市邊界山林",
+      "靜水域"
+    ],
+    "transformations": [
+      "盆地福澤",
+      "都市濕地福澤",
+      "樹林底層守護蛙"
+    ],
+    "tips": [
+      "綠色背部",
+      "樹棲感",
+      "濕地泡沫卵意象",
+      "小型都市邊界守護者"
+    ]
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

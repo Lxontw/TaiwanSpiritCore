@@ -1,0 +1,36 @@
+{
+  "id": "yimin",
+  "theme": "temples",
+  "category": "守土英靈／客庄記憶",
+  "title": "義民爺",
+  "subtitle": "",
+  "meta": {
+    "level": "守土英靈／客庄記憶",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n以身護庄、犧牲後被地方奉祀的守土英靈系統。\n\n【使者／部將】\n五營兵將\n\n【顯化故事】\n義民守土成神",
+    "regions": [
+      "西北丘陵・客庄古道靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "客庄",
+      "義民廟",
+      "塚墓",
+      "古戰場記憶"
+    ],
+    "transformations": [
+      "守土亡者",
+      "客庄防線",
+      "義民骨塚",
+      "地方英靈"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

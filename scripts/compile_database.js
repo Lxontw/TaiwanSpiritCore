@@ -5,9 +5,8 @@ const { execSync } = require('child_process');
 
 const projectDir = path.resolve(__dirname, '..');
 const dbPath = path.join(projectDir, 'data', 'database.js');
-const plantsDir = path.join(projectDir, 'data', 'plants');
-const talismansDir = path.join(projectDir, 'data', 'talismans');
 const extractScriptPath = path.join(projectDir, 'scripts', 'extract_data.js');
+const themes = ['fuzhe', 'plants', 'monsters', 'talismans', 'temples'];
 
 // 檢查目錄是否存在且包含 json 檔案
 function hasJsonFiles(dir) {
@@ -16,20 +15,14 @@ function hasJsonFiles(dir) {
   return files.some(file => file.endsWith('.json'));
 }
 
-const hasPlants = hasJsonFiles(plantsDir);
-const hasTalismans = hasJsonFiles(talismansDir);
+const themeDirs = Object.fromEntries(themes.map(theme => [theme, path.join(projectDir, 'data', theme)]));
+const hasAnyThemeJson = themes.some(theme => hasJsonFiles(themeDirs[theme]));
 
-let baseDb = {
-  fuzhe: [],
-  plants: [],
-  monsters: [],
-  talismans: [],
-  temples: []
-};
+let baseDb = Object.fromEntries(themes.map(theme => [theme, []]));
 
-// 降級判斷：如果兩者都沒有 JSON 檔案，執行 Task 1 的 HTML 提取
-if (!hasPlants && !hasTalismans) {
-  console.log("[Info] 未檢測到 plants 或 talismans JSON 資料，降級執行 Task 1 HTML 提取邏輯...");
+// 降級判斷：如果沒有任何主題 JSON 檔案，執行 Task 1 的 HTML 提取
+if (!hasAnyThemeJson) {
+  console.log("[Info] 未檢測到主題 JSON 資料，降級執行 Task 1 HTML 提取邏輯...");
   try {
     execSync(`node "${extractScriptPath}"`, { stdio: 'inherit' });
     console.log("[Success] Task 1 HTML 提取執行完成。");
@@ -38,7 +31,7 @@ if (!hasPlants && !hasTalismans) {
     process.exit(1);
   }
 } else {
-  // 如果有 JSON 檔案，我們需要載入 database.js 來取得 fuzhe, monsters, temples 的基本資料
+  // 如果有 JSON 檔案，我們先載入 database.js 作為 fallback，再用各主題 JSON 覆蓋。
   if (!fs.existsSync(dbPath)) {
     console.log("[Info] database.js 不存在，先執行 extract_data.js 以建立基本資料庫...");
     try {
@@ -58,39 +51,24 @@ if (!hasPlants && !hasTalismans) {
     baseDb = sandbox.window.TAIWAN_SPIRIT_DB;
   }
 
-  // 讀取 plants JSON 檔案
-  if (hasPlants) {
-    const plantFiles = fs.readdirSync(plantsDir).filter(file => file.endsWith('.json'));
-    const plants = [];
-    plantFiles.forEach(file => {
-      try {
-        const filePath = path.join(plantsDir, file);
-        const content = fs.readFileSync(filePath, 'utf8');
-        plants.push(JSON.parse(content));
-      } catch (e) {
-        console.error(`[Error] 讀取/解析 ${file} 失敗:`, e.message);
-      }
-    });
-    baseDb.plants = plants;
-    console.log(`[Success] 從 ${plantsDir} 載入了 ${plants.length} 筆植物條目。`);
-  }
+  themes.forEach(theme => {
+    const dir = themeDirs[theme];
+    if (!hasJsonFiles(dir)) return;
 
-  // 讀取 talismans JSON 檔案
-  if (hasTalismans) {
-    const talismanFiles = fs.readdirSync(talismansDir).filter(file => file.endsWith('.json'));
-    const talismans = [];
-    talismanFiles.forEach(file => {
+    const files = fs.readdirSync(dir).filter(file => file.endsWith('.json'));
+    const items = [];
+    files.forEach(file => {
       try {
-        const filePath = path.join(talismansDir, file);
+        const filePath = path.join(dir, file);
         const content = fs.readFileSync(filePath, 'utf8');
-        talismans.push(JSON.parse(content));
+        items.push(JSON.parse(content));
       } catch (e) {
         console.error(`[Error] 讀取/解析 ${file} 失敗:`, e.message);
       }
     });
-    baseDb.talismans = talismans;
-    console.log(`[Success] 從 ${talismansDir} 載入了 ${talismans.length} 筆法器條目。`);
-  }
+    baseDb[theme] = items;
+    console.log(`[Success] 從 ${dir} 載入了 ${items.length} 筆 ${theme} 條目。`);
+  });
 
   // 重新將合併後的資料寫入 database.js
   const fileContent = `window.TAIWAN_SPIRIT_DB = ${JSON.stringify(baseDb, null, 2)};\n`;

@@ -1,0 +1,35 @@
+{
+  "id": "stone-uncle",
+  "theme": "temples",
+  "category": "地景型使者／石靈",
+  "title": "石爺公",
+  "subtitle": "",
+  "meta": {
+    "level": "地景型使者／石靈",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n客庄山邊與石頭顯化相關的地方守護形象。\n\n【所屬主神】\n伯公土地公／福德正神\n\n【相關顯化故事】\n石爺公流紅",
+    "regions": [
+      "西北丘陵・客庄古道靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "大石",
+      "山腰",
+      "古道",
+      "客庄"
+    ],
+    "transformations": [
+      "流血之石",
+      "石伯公",
+      "山腰守護石"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

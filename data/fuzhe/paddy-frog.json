@@ -1,0 +1,46 @@
+{
+  "id": "paddy-frog",
+  "theme": "fuzhe",
+  "category": "蛙／田野水澤型",
+  "title": "澤蛙",
+  "subtitle": "",
+  "meta": {
+    "level": "蛙／田野水澤型",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n名字與水澤、田野直接連結，適合普遍型田邊福澤。圖片參考搜尋：澤蛙 Fejervarya limnocharis",
+    "regions": [
+      "南部平原・地下祖靈城靈格區",
+      "中部河階・陶土靈格區",
+      "北部盆地・河口靈格區"
+    ],
+    "cities": [
+      "農田",
+      "水田",
+      "低地水域"
+    ],
+    "landscapes": [
+      "水田",
+      "草澤",
+      "溝渠",
+      "池塘"
+    ],
+    "transformations": [
+      "田頭福澤",
+      "水田小福澤",
+      "溝渠守護蛙"
+    ],
+    "tips": [
+      "田野感",
+      "水澤",
+      "溝渠",
+      "小型群聚"
+    ]
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

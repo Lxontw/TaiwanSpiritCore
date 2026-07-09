@@ -5,16 +5,15 @@ const vm = require('vm');
 // 設定路徑
 const projectDir = path.resolve(__dirname, '..');
 const dbPath = path.join(projectDir, 'data', 'database.js');
-const plantsDir = path.join(projectDir, 'data', 'plants');
-const talismansDir = path.join(projectDir, 'data', 'talismans');
+const themes = ['fuzhe', 'plants', 'monsters', 'talismans', 'temples'];
 
 // 確保目錄存在
-if (!fs.existsSync(plantsDir)) {
-  fs.mkdirSync(plantsDir, { recursive: true });
-}
-if (!fs.existsSync(talismansDir)) {
-  fs.mkdirSync(talismansDir, { recursive: true });
-}
+themes.forEach(theme => {
+  const dir = path.join(projectDir, 'data', theme);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+});
 
 // 讀取並執行 database.js
 if (!fs.existsSync(dbPath)) {
@@ -33,28 +32,18 @@ if (!db) {
   process.exit(1);
 }
 
-// 拆分 plants
-if (db.plants && Array.isArray(db.plants)) {
-  db.plants.forEach(item => {
-    if (item.id) {
-      const filePath = path.join(plantsDir, `${item.id}.json`);
-      fs.writeFileSync(filePath, JSON.stringify(item, null, 2), 'utf8');
-    }
-  });
-  console.log(`[Success] 成功拆分並寫入 ${db.plants.length} 筆植物條目至 ${plantsDir}`);
-} else {
-  console.warn("[Warning] database.js 中沒有 plants 資料。");
-}
+themes.forEach(theme => {
+  if (!Array.isArray(db[theme])) {
+    console.warn(`[Warning] database.js 中沒有 ${theme} 資料。`);
+    return;
+  }
 
-// 拆分 talismans
-if (db.talismans && Array.isArray(db.talismans)) {
-  db.talismans.forEach(item => {
+  const dir = path.join(projectDir, 'data', theme);
+  db[theme].forEach(item => {
     if (item.id) {
-      const filePath = path.join(talismansDir, `${item.id}.json`);
+      const filePath = path.join(dir, `${item.id}.json`);
       fs.writeFileSync(filePath, JSON.stringify(item, null, 2), 'utf8');
     }
   });
-  console.log(`[Success] 成功拆分並寫入 ${db.talismans.length} 筆法器條目至 ${talismansDir}`);
-} else {
-  console.warn("[Warning] database.js 中沒有 talismans 資料。");
-}
+  console.log(`[Success] 成功拆分並寫入 ${db[theme].length} 筆 ${theme} 條目至 ${dir}`);
+});

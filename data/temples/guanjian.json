@@ -1,0 +1,35 @@
+{
+  "id": "guanjian",
+  "theme": "temples",
+  "category": "陰司／鎮邪開路部將",
+  "title": "官將首",
+  "subtitle": "",
+  "meta": {
+    "level": "陰司／鎮邪開路部將",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n護駕出巡、鎮邪開路的陰司武將系統，可和家將系統對照。\n\n【所屬主神】\n地藏王城隍大眾爺系統\n\n【相關顯化故事】\n官將首鎮邪開路",
+    "regions": [
+      "北部盆地・河口靈格區",
+      "南部平原・地下祖靈城靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "廟埕",
+      "遶境路線",
+      "陰陽交界"
+    ],
+    "transformations": [
+      "陰司武將",
+      "開路將軍",
+      "鎮邪面具"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

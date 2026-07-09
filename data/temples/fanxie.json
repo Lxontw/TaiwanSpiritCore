@@ -1,0 +1,36 @@
+{
+  "id": "fanxie",
+  "theme": "temples",
+  "category": "陰司執行者",
+  "title": "范謝將軍／七爺八爺",
+  "subtitle": "",
+  "meta": {
+    "level": "陰司執行者",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n城隍系統中的拘魂、押解、賞善罰惡部將。\n\n【所屬主神】\n城隍\n\n【相關顯化故事】\n亡魂押解水鬼變城隍",
+    "regions": [
+      "北部盆地・河口靈格區",
+      "南部平原・地下祖靈城靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "城隍廟",
+      "陰司",
+      "街路",
+      "城門"
+    ],
+    "transformations": [
+      "黑白引路者",
+      "亡魂拘捕者",
+      "陰陽開路"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

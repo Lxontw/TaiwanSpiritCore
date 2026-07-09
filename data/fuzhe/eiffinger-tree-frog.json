@@ -1,0 +1,45 @@
+{
+  "id": "eiffinger-tree-frog",
+  "theme": "fuzhe",
+  "category": "樹蛙／樹洞竹洞型",
+  "title": "艾氏樹蛙",
+  "subtitle": "",
+  "meta": {
+    "level": "樹蛙／樹洞竹洞型",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n可連到樹洞、竹洞與小型隱棲空間，適合古道與山林小福澤。圖片參考搜尋：艾氏樹蛙 Kurixalus eiffingeri",
+    "regions": [
+      "西北丘陵・客庄古道靈格區",
+      "中部河階・陶土靈格區",
+      "東部縱谷・玉石祖靈靈格區",
+      "山林內陸・霧石靈格區"
+    ],
+    "cities": [
+      "中低海拔山區"
+    ],
+    "landscapes": [
+      "樹洞",
+      "竹洞",
+      "林間",
+      "古道"
+    ],
+    "transformations": [
+      "樹洞福澤",
+      "竹洞福澤",
+      "古道小靈"
+    ],
+    "tips": [
+      "小型",
+      "隱棲",
+      "洞穴感",
+      "樹頭伯公延伸"
+    ]
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

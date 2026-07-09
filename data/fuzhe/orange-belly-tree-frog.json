@@ -1,0 +1,45 @@
+{
+  "id": "orange-belly-tree-frog",
+  "theme": "fuzhe",
+  "category": "樹蛙／稀有森林型",
+  "title": "橙腹樹蛙",
+  "subtitle": "",
+  "meta": {
+    "level": "樹蛙／稀有森林型",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n綠背橙腹、森林性強，適合東部與原始森林的高階或隱藏型福澤。圖片參考搜尋：橙腹樹蛙 Zhangixalus aurantiventris",
+    "regions": [
+      "東部縱谷・玉石祖靈靈格區"
+    ],
+    "cities": [
+      "台東知本",
+      "利嘉",
+      "海岸山脈",
+      "東部森林"
+    ],
+    "landscapes": [
+      "原始森林",
+      "樹洞",
+      "潮濕林地",
+      "山海交界"
+    ],
+    "transformations": [
+      "橙腹福澤",
+      "玉眼福澤",
+      "森林隱者"
+    ],
+    "tips": [
+      "綠背",
+      "橙紅腹",
+      "稀有感",
+      "玉石與森林結合"
+    ]
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

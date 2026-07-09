@@ -1,0 +1,36 @@
+{
+  "id": "qingshui",
+  "theme": "temples",
+  "category": "祖師信仰／示警型神明",
+  "title": "清水祖師",
+  "subtitle": "",
+  "meta": {
+    "level": "祖師信仰／示警型神明",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n與三峽、艋舺、淡水等北部聚落相關，常見落鼻示警、烏面祖師等傳說。\n\n【使者／部將】\n虎爺\n\n【顯化故事】\n清水祖師落鼻示警淡水神明擋砲彈",
+    "regions": [
+      "北部盆地・河口靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "三峽",
+      "艋舺",
+      "淡水",
+      "廟街",
+      "祖師廟"
+    ],
+    "transformations": [
+      "斷鼻警示器",
+      "烏面守護者",
+      "災變感應神像"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

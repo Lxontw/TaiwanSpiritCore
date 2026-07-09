@@ -1,14 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>《台灣靈格》後台管理系統 - Static CMS</title>
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
     <!-- 載入 Static CMS 的 CSS 資源 -->
     <link href="https://unpkg.com/@staticcms/app@3.0.0/dist/main.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        background: #111113;
+        color: #f0f0f5;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .cms-boot-status {
+        padding: 24px;
+        color: #c8a84b;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
+    <div id="cms-boot-status" class="cms-boot-status">正在載入《台灣靈格》後台...</div>
     <!-- 載入 Static CMS 的 JS 資源 -->
     <script src="https://unpkg.com/@staticcms/app@3.0.0/dist/static-cms-app.js"></script>
+    <script>
+      window.addEventListener('load', function () {
+        var status = document.getElementById('cms-boot-status');
+        if (window.CMS && typeof window.CMS.init === 'function') {
+          status.hidden = true;
+          window.CMS.init();
+        } else {
+          status.textContent = 'Static CMS 載入失敗，請檢查瀏覽器網路或 CDN 是否被阻擋。';
+        }
+      });
+    </script>
   </body>
 </html>

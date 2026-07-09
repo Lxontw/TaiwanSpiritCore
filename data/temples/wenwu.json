@@ -1,0 +1,36 @@
+{
+  "id": "wenwu",
+  "theme": "temples",
+  "category": "文書與執法部將",
+  "title": "文判／武判",
+  "subtitle": "",
+  "meta": {
+    "level": "文書與執法部將",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n城隍身邊的判案、文書、執法系統。\n\n【所屬主神】\n城隍\n\n【相關顯化故事】\n城隍聖旨擋炸彈",
+    "regions": [
+      "北部盆地・河口靈格區",
+      "南部平原・地下祖靈城靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "簿冊",
+      "聖旨",
+      "衙門",
+      "陰陽法庭"
+    ],
+    "transformations": [
+      "簿冊管理者",
+      "法令結界",
+      "陰陽書記"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

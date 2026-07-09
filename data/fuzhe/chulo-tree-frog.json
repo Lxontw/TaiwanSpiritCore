@@ -1,0 +1,47 @@
+{
+  "id": "chulo-tree-frog",
+  "theme": "fuzhe",
+  "category": "樹蛙／南部地域型",
+  "title": "諸羅樹蛙",
+  "subtitle": "",
+  "meta": {
+    "level": "樹蛙／南部地域型",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n雲嘉南農地與竹林代表性樹蛙，最適合南部平原福澤系統。圖片參考搜尋：諸羅樹蛙 Rhacophorus arvalis",
+    "regions": [
+      "南部平原・地下祖靈城靈格區"
+    ],
+    "cities": [
+      "雲林",
+      "嘉義",
+      "台南"
+    ],
+    "landscapes": [
+      "竹林",
+      "農地",
+      "果園",
+      "水田",
+      "雨夜"
+    ],
+    "transformations": [
+      "諸羅福澤",
+      "竹林福澤",
+      "稻田福澤",
+      "雨夜守田蛙"
+    ],
+    "tips": [
+      "綠色樹蛙",
+      "身側白線",
+      "竹林棲地",
+      "農地雨夜",
+      "南部平原感"
+    ]
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

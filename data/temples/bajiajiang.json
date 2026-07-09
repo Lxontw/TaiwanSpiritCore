@@ -1,0 +1,35 @@
+{
+  "id": "bajiajiang",
+  "theme": "temples",
+  "category": "陣頭執行者／巡境部將",
+  "title": "八家將／什家將",
+  "subtitle": "",
+  "meta": {
+    "level": "陣頭執行者／巡境部將",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n主神出巡時協助緝拿妖魔、驅邪、開路與形成巡境陣式的神將系統。\n\n【所屬主神】\n王爺／千歲五福大帝城隍\n\n【相關顯化故事】\n八家將步伐結界王爺代天巡狩",
+    "regions": [
+      "南部平原・地下祖靈城靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "廟埕",
+      "街路",
+      "庄頭",
+      "遶境路線"
+    ],
+    "transformations": [
+      "面具神將",
+      "地面法陣",
+      "巡境執行層"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

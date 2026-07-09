@@ -1,0 +1,37 @@
+{
+  "id": "qianliyan",
+  "theme": "temples",
+  "category": "耳目型使者",
+  "title": "千里眼",
+  "subtitle": "",
+  "meta": {
+    "level": "耳目型使者",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n媽祖身邊的遠望使者，負責看見遠方災難與海上求救。\n\n【所屬主神】\n媽祖\n\n【相關顯化故事】\n媽祖救船避風浪媽祖接炸彈",
+    "regions": [
+      "北部盆地・河口靈格區",
+      "中部河階・陶土靈格區",
+      "南部平原・地下祖靈城靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "海口",
+      "港口",
+      "神轎前方",
+      "風浪"
+    ],
+    "transformations": [
+      "巨眼使者",
+      "遠望靈",
+      "災前偵查者"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

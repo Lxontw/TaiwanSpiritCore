@@ -1,0 +1,44 @@
+{
+  "id": "white-lipped-tree-frog",
+  "theme": "fuzhe",
+  "category": "樹蛙／低地水域型",
+  "title": "白頷樹蛙",
+  "subtitle": "",
+  "meta": {
+    "level": "樹蛙／低地水域型",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n適合低地、池塘、草澤、水田環境，作為平原水域福澤候選。圖片參考搜尋：白頷樹蛙 Polypedates braueri",
+    "regions": [
+      "南部平原・地下祖靈城靈格區"
+    ],
+    "cities": [
+      "南部低地",
+      "池塘水域",
+      "水田"
+    ],
+    "landscapes": [
+      "草澤",
+      "池塘",
+      "水田",
+      "低地水域"
+    ],
+    "transformations": [
+      "平原水田福澤",
+      "池塘福澤",
+      "草澤福澤"
+    ],
+    "tips": [
+      "白色頷部",
+      "低地水域",
+      "池塘與草叢",
+      "農地守護"
+    ]
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

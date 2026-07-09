@@ -1,0 +1,36 @@
+{
+  "id": "tree-water-bogong",
+  "theme": "temples",
+  "category": "地景型土地守護分支",
+  "title": "樹頭伯公／水頭伯公",
+  "subtitle": "",
+  "meta": {
+    "level": "地景型土地守護分支",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n與大樹、水源、渡口、田頭等地景直接相連的伯公分支。\n\n【所屬主神】\n伯公土地公／福德正神\n\n【相關顯化故事】\n樹公與土地公合一伯公守庄",
+    "regions": [
+      "西北丘陵・客庄古道靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "樹頭",
+      "水頭",
+      "水尾",
+      "田頭",
+      "渡口"
+    ],
+    "transformations": [
+      "樹根土地靈",
+      "水源守護",
+      "樹洞福澤"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

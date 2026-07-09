@@ -1,0 +1,35 @@
+{
+  "id": "citygod-decree",
+  "theme": "temples",
+  "category": "法令擋災／地方傳說",
+  "title": "城隍聖旨擋炸彈",
+  "subtitle": "",
+  "meta": {
+    "level": "法令擋災／地方傳說",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【故事提示】\n地方傳說中，城隍以聖旨或法令之力擋下戰火災厄。資料性質：民間信仰敘事／地方傳說／創作參考，不作為史實斷言。\n\n【對應主神】\n城隍\n\n【對應使者／部將】\n文判／武判范謝將軍",
+    "regions": [
+      "北部盆地・河口靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "城隍廟",
+      "聖旨",
+      "古城",
+      "戰爭記憶"
+    ],
+    "transformations": [
+      "聖旨結界",
+      "城市判官",
+      "紙令承災"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

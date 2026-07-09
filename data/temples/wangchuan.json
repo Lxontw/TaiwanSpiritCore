@@ -1,0 +1,35 @@
+{
+  "id": "wangchuan",
+  "theme": "temples",
+  "category": "靈界交通工具／送疫載體",
+  "title": "王船",
+  "subtitle": "",
+  "meta": {
+    "level": "靈界交通工具／送疫載體",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【快速提示】\n王爺信仰中載神、載煞、送疫的重要媒介。\n\n【所屬主神】\n王爺／千歲\n\n【相關顯化故事】\n王船押送災厄王爺代天巡狩",
+    "regions": [
+      "南部平原・地下祖靈城靈格區"
+    ],
+    "cities": [],
+    "landscapes": [
+      "海口",
+      "王船廠",
+      "燒王船場域",
+      "香路"
+    ],
+    "transformations": [
+      "載災之船",
+      "送疫船靈",
+      "移動結界"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}
