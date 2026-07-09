@@ -1,5 +1,4 @@
-import { Router } from './modules/router.js';
-import { DataLoader } from './modules/data-loader.js';
+// 台灣靈格系統主應用程式入口
 
 // 主題名稱映射，使其更具台灣在地氛圍與可讀性
 const THEME_MAPPING = {
@@ -51,7 +50,7 @@ function buildTree() {
     const displayName = getThemeDisplayName(theme);
     const itemLinks = items.map(item => `
       <li class="tree-item" data-id="${item.id}" data-title="${item.title}" data-category="${item.category || ''}">
-        <a href="#/theme/${theme}/item/${item.id}">
+        <a id="link-item-${item.id}" href="#/theme/${theme}/item/${item.id}">
           <span class="tree-id">${item.id}</span>
           <span class="tree-title">${item.title}</span>
         </a>
@@ -60,7 +59,7 @@ function buildTree() {
 
     return `
       <div class="tree-group" data-theme="${theme}">
-        <button class="tree-group-toggle" type="button">
+        <button class="tree-group-toggle" type="button" id="toggle-group-${theme}">
           <span class="arrow">▼</span> ${displayName} (${items.length})
         </button>
         <ul class="tree-items">
@@ -85,12 +84,23 @@ function buildTree() {
   });
 }
 
+// 防抖動函數
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
 // 初始化搜尋
 function initSearch() {
   const searchInput = document.getElementById('search-input');
   if (!searchInput) return;
 
-  searchInput.addEventListener('input', (e) => {
+  searchInput.addEventListener('input', debounce((e) => {
     const query = e.target.value.toLowerCase().trim();
     const treeItems = document.querySelectorAll('.tree-item');
     const treeGroups = document.querySelectorAll('.tree-group');
@@ -135,7 +145,7 @@ function initSearch() {
         group.style.display = 'none';
       }
     });
-  });
+  }, 300));
 }
 
 // 高亮目前路由對應的項目

@@ -1,4 +1,4 @@
-export const Router = {
+const Router = {
   init(onRouteChanged) {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash;
@@ -28,3 +28,4 @@ export const Router = {
     };
   }
 };
+window.Router = Router;

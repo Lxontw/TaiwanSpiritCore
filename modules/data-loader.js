@@ -1,4 +1,4 @@
-export const DataLoader = {
+const DataLoader = {
   getAll() { return window.TAIWAN_SPIRIT_DB; },
   getByTheme(theme) { return window.TAIWAN_SPIRIT_DB[theme] || []; },
   getItem(id) {
@@ -9,3 +9,4 @@ export const DataLoader = {
     return null;
   }
 };
+window.DataLoader = DataLoader;
