@@ -18,24 +18,51 @@
       }
 
       .cms-boot-status {
+        max-width: 720px;
         padding: 24px;
         color: #c8a84b;
         font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .cms-boot-status strong {
+        display: block;
+        margin-bottom: 8px;
+        color: #f0f0f5;
+        font-size: 18px;
+      }
+
+      .cms-boot-status code {
+        color: #f0f0f5;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 2px 6px;
+        border-radius: 4px;
       }
     </style>
   </head>
   <body>
-    <div id="cms-boot-status" class="cms-boot-status">正在載入《台灣靈格》後台...</div>
+    <div id="cms-boot-status" class="cms-boot-status">
+      <strong>正在載入《台灣靈格》後台...</strong>
+      若畫面停在這裡，請確認瀏覽器允許載入 <code>unpkg.com</code> 與 GitHub 登入視窗。
+    </div>
     <!-- 載入 Static CMS 的 JS 資源 -->
     <script src="https://unpkg.com/@staticcms/app@3.0.0/dist/static-cms-app.js"></script>
     <script>
       window.addEventListener('load', function () {
         var status = document.getElementById('cms-boot-status');
-        if (window.CMS && typeof window.CMS.init === 'function') {
-          status.hidden = true;
-          window.CMS.init();
-        } else {
-          status.textContent = 'Static CMS 載入失敗，請檢查瀏覽器網路或 CDN 是否被阻擋。';
+        function showError(message) {
+          status.innerHTML = '<strong>Static CMS 載入失敗</strong>' + message;
+        }
+        try {
+          var cms = window.CMS || window.StaticCMS || window.NetlifyCmsApp || window.netlifyIdentity;
+          if (cms && typeof cms.init === 'function') {
+            cms.init();
+            return;
+          }
+          showError('找不到 Static CMS 初始化物件。請檢查 Static CMS CDN 是否被瀏覽器外掛或網路阻擋。');
+        } catch (error) {
+          showError('<code>' + String(error && error.message ? error.message : error) + '</code>');
+          console.error(error);
         }
       });
     </script>
