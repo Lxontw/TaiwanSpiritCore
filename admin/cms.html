@@ -3,18 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>《台灣靈格》Static CMS 實驗入口</title>
-  <script>
-    window.CMS_MANUAL_INIT = true;
-    function boot() {
-      if (window.CMS && typeof window.CMS.init === 'function') {
-        window.CMS.init();
-      }
+  <title>Static CMS 尚未啟用</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #0f0f11;
+      color: #f0f0f5;
+      font: 14px/1.7 "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
     }
-  </script>
-  <link href="https://unpkg.com/@staticcms/app@3.0.0/dist/main.css" rel="stylesheet">
+
+    main {
+      max-width: 680px;
+      padding: 28px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      color: #c8a84b;
+    }
+
+    p {
+      color: #a0a0b0;
+      margin: 0 0 14px;
+    }
+
+    a {
+      color: #f0f0f5;
+    }
+  </style>
 </head>
 <body>
-  <script src="https://unpkg.com/@staticcms/app@3.0.0/dist/static-cms-app.js" onload="boot()"></script>
+  <main>
+    <h1>Static CMS 尚未啟用</h1>
+    <p>這個入口需要另外設定 GitHub OAuth / CMS gateway。現在正式可用的後台是靜態資料後台。</p>
+    <p><a href="./">回資料後台</a></p>
+  </main>
 </body>
 </html>
