@@ -180,11 +180,60 @@ const Renderer = {
     if (!container) return;
 
     if (!params.theme && !params.item) {
+      const db = window.DataLoader ? window.DataLoader.getAll() : {};
+      const fuzheCount = db.fuzhe?.length || 0;
+      const plantsCount = db.plants?.length || 0;
+      const monstersCount = db.monsters?.length || 0;
+      const talismansCount = db.talismans?.length || 0;
+      const templesCount = db.temples?.length || 0;
+      const totalCount = fuzheCount + plantsCount + monstersCount + talismansCount + templesCount;
+
       container.innerHTML = `
-        <div class="content-placeholder">
-          <h1>TaiwanSpiritCore 台灣靈格</h1>
-          <p>請從左側知識樹選擇靈格條目，或在上方輸入關鍵字搜尋。</p>
-          <div class="brand-decorative">
+        <div class="home-dashboard animate-fade-in">
+          <div class="home-header">
+            <h1 class="home-title">《台灣靈格》知識檢索系統</h1>
+            <p class="home-subtitle">整合福澤系統、特有植物、精怪地景、符咒法器、廟宇神靈 ── 台灣民俗符號網絡與世界觀建構</p>
+          </div>
+          
+          <div class="stats-bento">
+            <div class="bento-card main-stats">
+              <span class="bento-label">全域收錄條目</span>
+              <span class="bento-val">${totalCount} <span class="unit">筆</span></span>
+              <div class="bento-bg-icon">◆</div>
+            </div>
+            
+            <a href="#/theme/fuzhe" class="bento-card theme-stats card-fuzhe">
+              <span class="bento-label">福澤系統 (fuzhe)</span>
+              <span class="bento-val">${fuzheCount} <span class="unit">條目</span></span>
+              <p class="bento-desc">台北樹蛙、盤古蟾蜍等台灣本土兩棲物種之文化福澤印記</p>
+            </a>
+
+            <a href="#/theme/plants" class="bento-card theme-stats card-plants">
+              <span class="bento-label">特有植物 (plants)</span>
+              <span class="bento-val">${plantsCount} <span class="unit">條目</span></span>
+              <p class="bento-desc">榕樹、檳榔等特有作物與族群象徵、巫覡植物特徵</p>
+            </a>
+
+            <a href="#/theme/talismans" class="bento-card theme-stats card-talismans">
+              <span class="bento-label">符咒法器 (talismans)</span>
+              <span class="bento-val">${talismansCount} <span class="unit">條目</span></span>
+              <p class="bento-desc">民俗法器、辟邪符令物與祭典科儀符號</p>
+            </a>
+
+            <a href="#/theme/monsters" class="bento-card theme-stats card-monsters">
+              <span class="bento-label">精怪地景 (monsters)</span>
+              <span class="bento-val">${monstersCount} <span class="unit">條目</span></span>
+              <p class="bento-desc">本土精怪、荒野怪談與地理空間的文化投射</p>
+            </a>
+
+            <a href="#/theme/temples" class="bento-card theme-stats card-temples">
+              <span class="bento-label">廟宇神靈 (temples)</span>
+              <span class="bento-val">${templesCount} <span class="unit">條目</span></span>
+              <p class="bento-desc">地方顯化故事、庄頭信仰與神祇譜系整理</p>
+            </a>
+          </div>
+
+          <div class="brand-decorative" style="margin-top: 40px; margin-bottom: 20px;">
             <div class="line"></div>
             <div class="symbol">◆</div>
             <div class="line"></div>

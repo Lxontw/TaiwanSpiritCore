@@ -762,3 +762,149 @@ details.tree-group[open] .tree-group-toggle .arrow {
   gap: 32px;
   padding: 32px 40px;
 }
+
+/* ==========================================
+   預設首頁 Bento Grid 導覽與統計數據面板
+   ========================================== */
+
+.home-dashboard {
+  padding: 48px;
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.home-header {
+  margin-bottom: 36px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 24px;
+}
+
+.home-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.home-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.stats-bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.bento-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold);
+  box-shadow: 0 8px 30px rgba(200, 168, 75, 0.15);
+}
+
+.main-stats {
+  grid-column: span 3;
+  background: linear-gradient(135deg, rgba(200, 168, 75, 0.1) 0%, rgba(21, 21, 24, 0.9) 100%);
+  border: 1px solid var(--accent-gold);
+  padding: 32px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bento-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.main-stats .bento-label {
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+.bento-val {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.main-stats .bento-val {
+  font-size: 42px;
+  color: var(--accent-gold);
+  text-shadow: 0 0 20px rgba(200, 168, 75, 0.2);
+}
+
+.bento-val .unit {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-left: 4px;
+}
+
+.bento-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.bento-bg-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  font-size: 96px;
+  color: rgba(200, 168, 75, 0.03);
+  pointer-events: none;
+  font-family: serif;
+}
+
+/* 響應式佈局 */
+@media (max-width: 900px) {
+  .stats-bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .main-stats {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-bento {
+    grid-template-columns: 1fr;
+  }
+  .main-stats {
+    grid-column: span 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .home-dashboard {
+    padding: 24px;
+  }
+}
