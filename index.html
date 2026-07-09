@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaiwanSpiritCore — 台灣靈格系統</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="layout" id="app-layout">
+    
+    <!-- 左側側邊欄 -->
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-title">Taiwan Spirit Core</span>
+        <input type="text" id="search-input" placeholder="搜尋靈格條目 (ID/名稱)..." autocomplete="off">
+      </div>
+      <nav class="tree" id="tree-container" aria-label="知識樹">
+        <!-- 知識樹會在此動態生成 -->
+      </nav>
+    </aside>
+
+    <!-- 右側主要內容區 -->
+    <main id="content">
+      <!-- 初始預設頁面 -->
+      <div class="content-placeholder">
+        <h1>TaiwanSpiritCore 台灣靈格</h1>
+        <p>請選擇左側條目或進行搜尋。</p>
+        <div class="brand-decorative">
+          <div class="line"></div>
+          <div class="symbol">◆</div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- 載入本地資料庫 -->
+  <script src="data/database.js"></script>
+  <!-- 載入主應用程式進入點 -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
