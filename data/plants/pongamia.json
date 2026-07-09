@@ -1,0 +1,34 @@
+{
+  "id": "pongamia",
+  "theme": "plants",
+  "category": "海岸濕地",
+  "title": "水黃皮",
+  "subtitle": "",
+  "meta": {
+    "level": "海岸濕地",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【植物身分】\n海岸／水邊樹木資料狀態：B來源／待補：需補植物資料。\n\n【分類】\n海岸濕地\n\n【用途／象徵】\n地景／象徵\n\n【生態地景】\n水邊海岸溪口\n\n【文化意義】\n水邊樹、花、河口與海岸交界。",
+    "regions": [
+      "南部平原・地下祖靈城",
+      "東部縱谷・玉石祖靈",
+      "島嶼／海域外篇"
+    ],
+    "cities": [
+      "閩南／台灣漢人民俗"
+    ],
+    "landscapes": [],
+    "transformations": [
+      "水邊花樹靈",
+      "河口粉花使",
+      "水黃皮守護者"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "edelweiss",
+  "theme": "plants",
+  "category": "蘭科稀有花草",
+  "title": "玉山薄雪草",
+  "subtitle": "",
+  "meta": {
+    "level": "蘭科稀有花草",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【植物身分】\n高山草本／稀有美感植物資料狀態：B來源／待補：國家公園高山花草文章。\n\n【分類】\n蘭科稀有花草\n\n【用途／象徵】\n地景／象徵\n\n【生態地景】\n高山草地岩坡霧氣\n\n【文化意義】\n小白花、高山脆弱生命、霧中亮點。",
+    "regions": [
+      "山林內陸・霧石"
+    ],
+    "cities": [
+      "布農族"
+    ],
+    "landscapes": [],
+    "transformations": [
+      "薄雪花靈",
+      "白絨高山使",
+      "霧中小白花"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

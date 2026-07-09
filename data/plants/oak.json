@@ -1,0 +1,31 @@
+{
+  "id": "oak",
+  "theme": "plants",
+  "category": "高山霧林",
+  "title": "高山櫟",
+  "subtitle": "",
+  "meta": {
+    "level": "高山霧林",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【植物身分】\n高山森林植物資料狀態：A來源／待補：玉山國家公園植群帶資料。\n\n【分類】\n高山霧林\n\n【用途／象徵】\n地景／象徵\n\n【生態地景】\n鐵杉雲杉林帶高山森林\n\n【文化意義】\n堅硬葉片、山地闊葉與針葉混生。",
+    "regions": [
+      "山林內陸・霧石"
+    ],
+    "cities": [
+      "布農族"
+    ],
+    "landscapes": [],
+    "transformations": [
+      "高山櫟盾靈",
+      "霧林葉甲獸"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

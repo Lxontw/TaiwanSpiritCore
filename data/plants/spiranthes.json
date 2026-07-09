@@ -1,0 +1,33 @@
+{
+  "id": "spiranthes",
+  "theme": "plants",
+  "category": "蘭科稀有花草",
+  "title": "綬草",
+  "subtitle": "",
+  "meta": {
+    "level": "蘭科稀有花草",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【植物身分】\n小型蘭科／草地花資料狀態：B來源／待補：需補植物資料。\n\n【分類】\n蘭科稀有花草\n\n【用途／象徵】\n地景／象徵\n\n【生態地景】\n草地田邊小花\n\n【文化意義】\n螺旋花序、小型、低地草花。",
+    "regions": [
+      "北部盆地・河口",
+      "中部河階・陶土",
+      "南部平原・地下祖靈城"
+    ],
+    "cities": [
+      "閩南／台灣漢人民俗"
+    ],
+    "landscapes": [],
+    "transformations": [
+      "旋花小靈",
+      "草地螺旋使"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

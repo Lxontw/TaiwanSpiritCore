@@ -1,0 +1,32 @@
+{
+  "id": "nanhu",
+  "theme": "plants",
+  "category": "高山霧林",
+  "title": "南湖杜鵑",
+  "subtitle": "",
+  "meta": {
+    "level": "高山霧林",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【植物身分】\n高山杜鵑／南湖地景植物資料狀態：B來源／待補：國家公園高山植物文章。\n\n【分類】\n高山霧林\n\n【用途／象徵】\n地景／象徵\n\n【生態地景】\n南湖圈谷五岩峰高山灌叢\n\n【文化意義】\n南湖山域、高山花、岩稜生命力。",
+    "regions": [
+      "山林內陸・霧石"
+    ],
+    "cities": [
+      "泰雅族"
+    ],
+    "landscapes": [],
+    "transformations": [
+      "南湖花靈",
+      "圈谷杜鵑使",
+      "岩稜花冠"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

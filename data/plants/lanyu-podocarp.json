@@ -1,0 +1,32 @@
+{
+  "id": "lanyu-podocarp",
+  "theme": "plants",
+  "category": "材料與器物植物",
+  "title": "蘭嶼羅漢松",
+  "subtitle": "",
+  "meta": {
+    "level": "材料與器物植物",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【植物身分】\n蘭嶼重要植物／島嶼材料植物資料狀態：B來源／待補：需補達悟船材與植物使用細節。\n\n【分類】\n材料與器物植物\n\n【用途／象徵】\n材料／器物地景／象徵\n\n【生態地景】\n蘭嶼島嶼山林船材／木材脈絡\n\n【文化意義】\n島嶼植物、木材、海島地景與達悟生活材料。",
+    "regions": [
+      "島嶼／海域外篇"
+    ],
+    "cities": [
+      "達悟族"
+    ],
+    "landscapes": [],
+    "transformations": [
+      "島嶼木靈",
+      "蘭嶼舟木使",
+      "海風羅漢松"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}

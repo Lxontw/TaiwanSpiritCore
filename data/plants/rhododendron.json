@@ -1,0 +1,32 @@
+{
+  "id": "rhododendron",
+  "theme": "plants",
+  "category": "高山霧林",
+  "title": "玉山杜鵑",
+  "subtitle": "",
+  "meta": {
+    "level": "高山霧林",
+    "status": "已放圖片"
+  },
+  "content": {
+    "summary": "【植物身分】\n高山花木／季節象徵資料狀態：A來源／待補：國家公園高山植物資料。\n\n【分類】\n高山霧林\n\n【用途／象徵】\n地景／象徵\n\n【生態地景】\n玉山雪山高山花海圈谷\n\n【文化意義】\n高山開花、霧中生命力、五月花季。",
+    "regions": [
+      "山林內陸・霧石"
+    ],
+    "cities": [
+      "布農族"
+    ],
+    "landscapes": [],
+    "transformations": [
+      "霧花靈",
+      "高山花冠使",
+      "杜鵑雲衣"
+    ],
+    "tips": []
+  },
+  "image": "",
+  "source": {
+    "label": "",
+    "url": ""
+  }
+}
